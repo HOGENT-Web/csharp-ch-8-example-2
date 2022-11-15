@@ -2,7 +2,7 @@
 using BogusStore.Shared.Products;
 using Microsoft.AspNetCore.Components;
 
-namespace BogusStore.Client.Products;
+namespace BogusStore.Client.Products.Components;
 
 public partial class Create
 {
