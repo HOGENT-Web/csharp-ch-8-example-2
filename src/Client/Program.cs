@@ -6,6 +6,7 @@ using BogusStore.Client.Authentication;
 using BogusStore.Shared.Products;
 using BogusStore.Client.Products;
 using Append.Blazor.Sidepanel;
+using BogusStore.Client.Tags;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -24,6 +25,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 builder.Services.AddSidepanel();
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 
 await builder.Build().RunAsync();
