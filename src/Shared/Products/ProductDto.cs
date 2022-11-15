@@ -9,6 +9,8 @@ public abstract class ProductDto
         public int Id { get; set; }
         public string? Name { get; set; }
         public decimal Price { get; set; }
+        public string? ImageUrl { get; set; }
+        public string? Description { get; set; }
     }
 
     public class Detail
@@ -17,6 +19,8 @@ public abstract class ProductDto
         public string? Name { get; set; }
         public decimal Price { get; set; }
         public string? Description { get; set; }
+        public bool IsInStock { get; set; }
+        public string? ImageUrl { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public IEnumerable<string>? Tags { get; set; }

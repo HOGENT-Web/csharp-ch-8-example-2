@@ -26,6 +26,13 @@ public class Product : Entity
         set => price = Guard.Against.Null(value, nameof(Price));
     }
 
+    private string imageUrl = default!;
+    public string ImageUrl
+    {
+        get => imageUrl;
+        set => imageUrl = Guard.Against.NullOrWhiteSpace(value, nameof(ImageUrl));
+    }
+
     private readonly List<Tag> tags = new();
     public IReadOnlyCollection<Tag> Tags => tags.AsReadOnly();
 
@@ -34,11 +41,12 @@ public class Product : Entity
     /// </summary>
     private Product() { }
 
-    public Product(string name, string description, Money price)
+    public Product(string name, string description, Money price, string imageUrl)
     {
         Name = name;
         Description = description;
         Price = price;
+        ImageUrl = imageUrl;
     }
 
     public void Tag(Tag tag)

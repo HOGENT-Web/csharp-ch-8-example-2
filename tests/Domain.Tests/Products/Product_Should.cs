@@ -15,7 +15,7 @@ public class Product_Should
         string description = "Something round to kick on.";
         Money price = new MoneyFaker();
 
-        Product product = new(name, description,price);
+        Product product = new(name, description,price,"fake image");
 
         product.Name.ShouldBe(name);
         product.Description.ShouldBe(description);
@@ -31,7 +31,7 @@ public class Product_Should
 
         Action act = () =>
         {
-            Product product = new(name, description, price);
+            Product product = new(name, description, price, "fake image");
         };
 
         act.ShouldThrow<Exception>();

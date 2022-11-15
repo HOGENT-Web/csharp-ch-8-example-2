@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using BogusStore.Domain.Exceptions;
+using BogusStore.Shared.Infrastructure;
 
 namespace BogusStore.Server.Middleware;
 

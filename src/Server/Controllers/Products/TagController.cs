@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using BogusStore.Shared.Products;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BogusStore.Server.Controllers.Products;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class TagController : ControllerBase
 {
     private readonly ITagService tagService;
@@ -16,7 +17,7 @@ public class TagController : ControllerBase
     }
 
     [SwaggerOperation("Returns a list of all tags available in the bogus catalog.")]
-    [HttpGet]
+    [HttpGet, AllowAnonymous]
     public async Task<TagResult.Index> GetIndex([FromQuery] TagRequest.Index request)
     {
         return await tagService.GetIndexAsync(request);

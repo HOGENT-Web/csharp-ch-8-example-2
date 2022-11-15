@@ -1,10 +1,13 @@
 using BogusStore.Persistence;
+using BogusStore.Server.Authentication;
 using BogusStore.Server.Middleware;
 using BogusStore.Services;
 using BogusStore.Shared.Products;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,10 @@ builder.Services.AddSwaggerGen(options =>
 // Database
 builder.Services.AddDbContext<BogusDbContext>();
 
+// (Fake) Authentication
+builder.Services.AddAuthentication("Fake Authentication")
+                .AddScheme<AuthenticationSchemeOptions, FakeAuthenticationHandler>("Fake Authentication", null);
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -41,8 +48,6 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -54,9 +59,11 @@ app.UseStaticFiles();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 app.MapFallbackToFile("index.html");
 
 

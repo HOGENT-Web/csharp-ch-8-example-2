@@ -8,7 +8,7 @@ using BogusStore.Shared.Orders;
 namespace BogusStore.Server.Controllers.Products;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CustomerController : ControllerBase
 {
     private readonly ICustomerService customerService;

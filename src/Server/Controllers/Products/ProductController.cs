@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using BogusStore.Shared.Products;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
+using BogusStore.Shared.Authentication;
 
 namespace BogusStore.Server.Controllers.Products;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ProductController : ControllerBase
 {
     private readonly IProductService productService;
@@ -16,25 +18,25 @@ public class ProductController : ControllerBase
     }
 
     [SwaggerOperation("Returns a list of products available in the bogus catalog.")]
-    [HttpGet]
+    [HttpGet, AllowAnonymous]
     public async Task<ProductResult.Index> GetIndex([FromQuery] ProductRequest.Index request)
     {
         return await productService.GetIndexAsync(request);
     }
 
     [SwaggerOperation("Returns a specific product available in the bogus catalog.")]
-    [HttpGet("{productId}")]
+    [HttpGet("{productId}"), AllowAnonymous]
     public async Task<ProductDto.Detail> GetDetail(int productId)
     {
         return await productService.GetDetailAsync(productId);
     }
 
     [SwaggerOperation("Creates a new product in the catalog.")]
-    [HttpPost]
+    [HttpPost, Authorize(Roles = Roles.Administrator)]
     public async Task<IActionResult> Create(ProductDto.Mutate model)
     {
         var productId = await productService.CreateAsync(model);
-        return CreatedAtAction(nameof(Create), new { id = productId});
+        return CreatedAtAction(nameof(Create), productId);
     }
 
     [SwaggerOperation("Edites an existing product in the catalog.")]

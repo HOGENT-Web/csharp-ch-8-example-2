@@ -22,7 +22,7 @@ public class FakeSeeder
 
     private void SeedProducts()
 	{
-        var products = new ProductFaker().AsTransient().Generate(100);
+        var products = new ProductFaker().AsTransient().UseSeed(1337).Generate(100);
         dbContext.Products.AddRange(products);
         dbContext.SaveChanges();
     }
@@ -31,11 +31,11 @@ public class FakeSeeder
     {
         List<Tag> tags = new()
         {
-            new Tag("Sports", "green"),
-            new Tag("Food", "blue"),
-            new Tag("Drinks","red"),
-            new Tag("Clothing","orange"),
-            new Tag("Stuff","gray"),
+            new Tag("Vers", "green"),
+            new Tag("Bevroren", "blue"),
+            new Tag("Hout","red"),
+            new Tag("Rubber","orange"),
+            new Tag("Metaal","gray"),
         };
 
         dbContext.Tags.AddRange(tags);
@@ -44,7 +44,7 @@ public class FakeSeeder
 
     private void SeedCustomers()
     {
-        var customers = new CustomerFaker().AsTransient().Generate(10);
+        var customers = new CustomerFaker().AsTransient().UseSeed(1337).Generate(10);
         dbContext.Customers.AddRange(customers);
         dbContext.SaveChanges();
     }

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 
-namespace BogusStore.Server.Middleware;
+namespace BogusStore.Shared.Infrastructure;
 
 /// <summary>
 /// Error returned by the <see cref="ExceptionMiddleware"/> when an <see cref="Exception"/> is thrown.

@@ -33,7 +33,9 @@ public class ProductService : IProductService
            {
                Id = x.Id,
                Name = x.Name,
+               Description = x.Description,
                Price = x.Price.Value,
+               ImageUrl = x.ImageUrl,
            }).ToListAsync();
 
         var result = new ProductResult.Index
@@ -53,6 +55,7 @@ public class ProductService : IProductService
             Price = x.Price.Value,
             Description = x.Description,
             Tags = x.Tags.Select(x => x.Name),
+            ImageUrl = x.ImageUrl,
             CreatedAt = x.CreatedAt,
             UpdatedAt = x.UpdatedAt
         }).SingleOrDefaultAsync(x => x.Id == productId);
@@ -69,7 +72,7 @@ public class ProductService : IProductService
             throw new EntityAlreadyExistsException(nameof(Product), nameof(Product.Name), model.Name);
 
         Money price = new(model.Price);
-        Product product = new(model.Name!, model.Description!, price);
+        Product product = new(model.Name!, model.Description!, price,"insert image here.");
 
         dbContext.Products.Add(product);
         await dbContext.SaveChangesAsync();
