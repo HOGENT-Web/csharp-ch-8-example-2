@@ -16,8 +16,12 @@
                 <NavLink class="navbar-item is-tab" href="product" ActiveClass="is-active">
                     Producten
                 </NavLink>
+                <AuthorizeView Roles="@Roles.Administrator">
+                    <NavLink class="navbar-item is-tab" href="tag" ActiveClass="is-active">
+                        Tags
+                    </NavLink>
+                </AuthorizeView>
             </div>
-
             <div class="navbar-end">
                 <AccessControl />
             </div>

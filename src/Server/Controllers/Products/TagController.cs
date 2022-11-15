@@ -28,7 +28,7 @@ public class TagController : ControllerBase
     public async Task<IActionResult> Create(TagDto.Mutate model)
     {
         var tagId = await tagService.CreateAsync(model);
-        return CreatedAtAction(nameof(Create), new { id = tagId});
+        return CreatedAtAction(nameof(Create), tagId);
     }
 
     [SwaggerOperation("Edites an existing tag in the catalog.")]
