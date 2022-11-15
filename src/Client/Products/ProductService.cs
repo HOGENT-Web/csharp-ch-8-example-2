@@ -1,4 +1,5 @@
-﻿using BogusStore.Shared.Products;
+using BogusStore.Client.Extensions;
+using BogusStore.Shared.Products;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -33,9 +34,8 @@ public class ProductService : IProductService
 
     public async Task<ProductResult.Index> GetIndexAsync(ProductRequest.Index request)
     {
-        // Currently not doing anything with the parameters from the request.
-        var response = await client.GetFromJsonAsync<ProductResult.Index>($"{endpoint}?page=1&pagesize=10");
-        return response;
+        var response = await client.GetFromJsonAsync<ProductResult.Index>($"{endpoint}?{request.AsQueryString()}");
+        return response!;
     }
 
     public async Task EditAsync(int productId, ProductDto.Mutate model)
