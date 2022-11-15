@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using BogusStore.Shared.Products;
 using System.Threading.Tasks;
-
+using BogusStore.Client.Products.Components;
+using Append.Blazor.Sidepanel;
 
 namespace BogusStore.Client.Products;
 
@@ -13,11 +14,11 @@ public partial class Detail
     [Parameter] public int Id { get; set; }
     [Inject] public IProductService ProductService { get; set; } = default!;
     [Inject] public NavigationManager NavigationManager { get; set; } = default!;
+    [Inject] public ISidepanelService Sidepanel { get; set; } = default!;
 
     protected override async Task OnParametersSetAsync()
     {
-        var response = await ProductService.GetDetailAsync(Id);
-        product = response;
+        await GetProductAsync();
     }
 
     private void RequestDelete()
@@ -34,5 +35,22 @@ public partial class Detail
     {
         await ProductService.DeleteAsync(Id);
         NavigationManager.NavigateTo("product");
+    }
+
+    private void ShowEditForm()
+    {
+        var callback = EventCallback.Factory.Create(this, GetProductAsync);
+
+        var parameters = new Dictionary<string, object>
+             {
+                 { nameof(Edit.ProductId), Id },
+                 { nameof(Edit.OnProductEdited),callback  }
+             };
+        Sidepanel.Open<Edit>("Product", "Wijzigen", parameters);
+    }
+
+    private async Task GetProductAsync()
+    {
+        product = await ProductService.GetDetailAsync(Id);
     }
 }

@@ -14,7 +14,7 @@
     <footer class="card-footer">
         <a href="product/1" class="card-footer-item">Bestel</a>
         <AuthorizeView Roles="@Roles.Administrator">
-            <a href="product/@Product.Id" class="card-footer-item">Wijzigen</a>
+            <a @onclick="ShowEditForm" class="card-footer-item">Wijzigen</a>
         </AuthorizeView>
     </footer>
 </div>

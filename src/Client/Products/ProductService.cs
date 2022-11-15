@@ -38,9 +38,9 @@ public class ProductService : IProductService
         return response;
     }
 
-    public Task EditAsync(int productId, ProductDto.Mutate model)
+    public async Task EditAsync(int productId, ProductDto.Mutate model)
     {
-        throw new NotImplementedException();
+        var response = await client.PutAsJsonAsync($"{endpoint}/{productId}", model);
     }
 
     public Task AddTagAsync(int productId, int tagId)
