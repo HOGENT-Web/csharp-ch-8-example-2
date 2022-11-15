@@ -28,12 +28,31 @@ else
                         </span>
                         <span>Wijzigen</span>
                     </button>
-                    <button class="button is-light is-medium is-fullwidth" @onclick="DeleteProductAsync">
-                        <span class="icon">
-                            <i class="fas fa-trash"></i>
-                        </span>
-                        <span>Verwijderen</span>
-                    </button>
+                    @if (isRequestingDelete)
+                    {
+
+                        <button class="button is-light is-medium is-fullwidth" @onclick="CancelDeleteRequest">
+                            <span class="icon">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            <span>Verwijderen annuleren</span>
+                        </button>
+                        <button class="button is-danger is-medium is-fullwidth" @onclick="DeleteProductAsync">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>Verwijderen bevestigen</span>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="button is-light is-medium is-fullwidth" @onclick="RequestDelete">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>Verwijderen</span>
+                        </button>
+                    }
                 </AuthorizeView>
             </div>
         </div>
