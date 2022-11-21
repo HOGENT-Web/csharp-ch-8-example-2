@@ -26,9 +26,10 @@ public class CustomerService : ICustomerService
         throw new NotImplementedException();
     }
 
-    public Task<int> CreateAsync(CustomerDto.Mutate model)
+    public async Task<int> CreateAsync(CustomerDto.Mutate model)
     {
-        throw new NotImplementedException();
+        var response = await client.PostAsJsonAsync(endpoint, model);
+        return await response.Content.ReadFromJsonAsync<int>();
     }
 
     public Task EditAsync(int customerId, CustomerDto.Mutate model)

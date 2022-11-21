@@ -1,6 +1,7 @@
 ﻿using System;
 using Append.Blazor.Sidepanel;
 using BogusStore.Shared.Customers;
+using BogusStore.Shared.Products;
 using Microsoft.AspNetCore.Components;
 
 namespace BogusStore.Client.Customers;
@@ -45,6 +46,11 @@ public partial class Index
         var uri = NavigationManager.GetUriWithQueryParameters(parameters);
 
         NavigationManager.NavigateTo(uri);
+    }
+
+    private void ShowCreateForm()
+    {
+        Sidepanel.Open<Components.Create>("Klant", "Toevoegen");
     }
 }
 
