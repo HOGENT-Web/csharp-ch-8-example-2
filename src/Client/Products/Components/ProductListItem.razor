@@ -12,7 +12,7 @@
         </div>
     </div>
     <footer class="card-footer">
-        <a href="product/1" class="card-footer-item">Bestel</a>
+        <a @onclick="AddToCart" class="card-footer-item">Bestel</a>
         <AuthorizeView Roles="@Roles.Administrator">
             <a @onclick="ShowEditForm" class="card-footer-item">Wijzigen</a>
         </AuthorizeView>
