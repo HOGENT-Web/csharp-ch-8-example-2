@@ -39,7 +39,7 @@ public class CustomerController : ControllerBase
     public async Task<IActionResult> Create(CustomerDto.Mutate model)
     {
         var customerId = await customerService.CreateAsync(model);
-        return CreatedAtAction(nameof(Create), new { id = customerId });
+        return CreatedAtAction(nameof(Create), customerId);
     }
 
     [SwaggerOperation("Edites an existing customer.")]
