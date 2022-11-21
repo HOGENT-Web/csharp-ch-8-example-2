@@ -9,6 +9,8 @@ using Append.Blazor.Sidepanel;
 using BogusStore.Client.Tags;
 using BogusStore.Client.Files;
 using BogusStore.Client.Orders;
+using BogusStore.Shared.Customers;
+using BogusStore.Client.Customers;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -29,6 +31,7 @@ builder.Services.AddSidepanel();
 builder.Services.AddScoped<Cart>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddHttpClient<IStorageService,AzureBlobStorageService>();
 
 await builder.Build().RunAsync();
