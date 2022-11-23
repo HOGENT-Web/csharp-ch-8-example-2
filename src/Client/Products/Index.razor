@@ -1,4 +1,4 @@
-﻿@page "/product"
+@page "/product"
 <PageTitle>Producten</PageTitle>
 
 @if(products is null)
@@ -26,7 +26,7 @@
             @foreach (var product in products)
             {
                 <div class="column is-half">
-                    <ProductListItem Product="product" />
+                    <ProductListItem Product="product" OnDeleteRequested="() => DeleteAsync(product)" />
                 </div>
             }
         </div>
