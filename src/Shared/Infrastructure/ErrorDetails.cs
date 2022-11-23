@@ -19,6 +19,11 @@ public class ErrorDetails
     /// </summary>
     public string? Message { get; set; }
 
+    public ErrorDetails()
+    {
+
+    }
+
     public ErrorDetails(string message, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
     {
         StatusCode = (int)statusCode;
