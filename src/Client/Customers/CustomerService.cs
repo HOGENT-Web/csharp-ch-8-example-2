@@ -21,9 +21,10 @@ public class CustomerService : ICustomerService
         return response!;
     }
 
-    public Task<CustomerDto.Detail> GetDetailAsync(int customerId)
+    public async Task<CustomerDto.Detail> GetDetailAsync(int customerId)
     {
-        throw new NotImplementedException();
+        var response = await client.GetFromJsonAsync<CustomerDto.Detail>($"{endpoint}/{customerId}");
+        return response;
     }
 
     public async Task<int> CreateAsync(CustomerDto.Mutate model)
