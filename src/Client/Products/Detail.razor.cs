@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using BogusStore.Shared.Products;
 using System.Threading.Tasks;
 using BogusStore.Client.Products.Components;
 using Append.Blazor.Sidepanel;
+using BogusStore.Client.Orders;
 
 namespace BogusStore.Client.Products;
 
@@ -15,6 +16,7 @@ public partial class Detail
     [Inject] public IProductService ProductService { get; set; } = default!;
     [Inject] public NavigationManager NavigationManager { get; set; } = default!;
     [Inject] public ISidepanelService Sidepanel { get; set; } = default!;
+    [Inject] public Cart Cart { get; set; } = default!;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -52,5 +54,10 @@ public partial class Detail
     private async Task GetProductAsync()
     {
         product = await ProductService.GetDetailAsync(Id);
+    }
+
+    private void AddToCart()
+    {
+        Cart.AddItem(product!.Id, product!.Name!, product.Price);
     }
 }

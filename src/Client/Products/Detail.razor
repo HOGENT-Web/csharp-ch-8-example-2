@@ -15,7 +15,7 @@ else
             <p class="block has-text-gray is-size-5">@product.Price.ToString("C") <small>| @string.Join(',',product.Tags)</small></p>
             <p class="block">@product.Description</p>
             <div class="buttons is-centered">
-                <button class="button is-primary is-medium is-fullwidth">
+                <button @onclick="AddToCart" class="button is-primary is-medium is-fullwidth">
                     <span class="icon">
                         <i class="fas fa-shopping-cart"></i>
                     </span>
