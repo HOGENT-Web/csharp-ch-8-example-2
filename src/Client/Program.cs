@@ -6,6 +6,7 @@ using BogusStore.Client.Authentication;
 using BogusStore.Shared.Products;
 using BogusStore.Client.Products;
 using BogusStore.Client.Infrastructure;
+using Append.Blazor.Sidepanel;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,6 +23,8 @@ builder.Services.AddHttpClient("Project.ServerAPI", client => client.BaseAddress
                 .AddHttpMessageHandler<CleanErrorHandler>();
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Project.ServerAPI"));
+
+builder.Services.AddSidepanel();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 

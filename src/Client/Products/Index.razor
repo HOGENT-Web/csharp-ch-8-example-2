@@ -10,12 +10,12 @@
     <div class="column is-one-quarter">
         <AuthorizeView Roles="@Roles.Administrator">
             <div class="buttons">
-                <a class="button is-primary is-fullwidth" href="product/create">
+                <button class="button is-primary is-fullwidth" @onclick="ShowCreateForm">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
                     <span>Toevoegen</span>
-                </a>
+                </button>
             </div>
         </AuthorizeView>
         <h1 class="title is-size-6 is-uppercase has-text-grey">Zoek een product</h1>
