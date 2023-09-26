@@ -1,4 +1,5 @@
-﻿using Bogus;
+using Bogus; 
+using System.Linq;
 using BogusStore.Domain.Products;
 using BogusStore.Persistence;
 using BogusStore.Shared.Products;
@@ -22,6 +23,21 @@ public class ProductService : IProductService
         if (!string.IsNullOrWhiteSpace(request.Searchterm))
         {
             query = query.Where(x => x.Name.Contains(request.Searchterm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (request.MinPrice is not null)
+        {
+            query = query.Where(x => x.Price.Value >= request.MinPrice);
+        }
+
+        if (request.MaxPrice is not null)
+        {
+            query = query.Where(x => x.Price.Value <= request.MaxPrice);
+        }
+
+        if (request.TagId is not null)
+        {
+            query = query.Where(x => x.Tags.Select(x => x.Id).Contains(request.TagId.Value));
         }
 
         int totalAmount = await query.CountAsync();
