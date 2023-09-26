@@ -23,6 +23,7 @@ public class CustomerService : ICustomerService
         if (!string.IsNullOrWhiteSpace(request.Searchterm))
         {
             query = query.Where(x => x.Firstname.Contains(request.Searchterm, StringComparison.OrdinalIgnoreCase)
+                                  || x.Email.Value.Contains(request.Searchterm, StringComparison.OrdinalIgnoreCase)
                                   || x.Lastname.Contains(request.Searchterm, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -37,6 +38,7 @@ public class CustomerService : ICustomerService
                Id = x.Id,
                Firstname = x.Firstname,
                Lastname = x.Lastname,
+               Email = x.Email.Value,
            }).ToListAsync();
 
         var result = new CustomerResult.Index

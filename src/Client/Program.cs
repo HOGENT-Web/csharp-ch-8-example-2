@@ -9,6 +9,8 @@ using BogusStore.Client.Infrastructure;
 using Append.Blazor.Sidepanel;
 using BogusStore.Client.Tags;
 using BogusStore.Client.Orders;
+using BogusStore.Shared.Customers;
+using BogusStore.Client.Customers;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -31,5 +33,6 @@ builder.Services.AddSidepanel();
 builder.Services.AddScoped<Cart>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 await builder.Build().RunAsync();
