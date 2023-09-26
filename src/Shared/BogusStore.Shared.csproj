@@ -13,4 +13,12 @@
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="10.4.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Authentication\" />
+	  <None Remove="Infrastructure\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Authentication\" />
+	  <Folder Include="Infrastructure\" />
+	</ItemGroup>
 </Project>

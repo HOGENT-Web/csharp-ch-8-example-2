@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using BogusStore.Client.Authentication;
 using BogusStore.Shared.Products;
 using BogusStore.Client.Products;
+using BogusStore.Client.Infrastructure;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

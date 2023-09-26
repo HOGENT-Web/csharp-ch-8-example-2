@@ -1,4 +1,5 @@
-﻿using BogusStore.Domain.Products;
+﻿using Bogus;
+using BogusStore.Domain.Products;
 using BogusStore.Persistence;
 using BogusStore.Shared.Products;
 using Microsoft.EntityFrameworkCore;
@@ -71,8 +72,10 @@ public class ProductService : IProductService
         if (await dbContext.Products.AnyAsync(x => x.Name == model.Name))
             throw new EntityAlreadyExistsException(nameof(Product), nameof(Product.Name), model.Name);
 
+        Faker imageFaker = new();
+
         Money price = new(model.Price);
-        Product product = new(model.Name!, model.Description!, price,"insert image here.");
+        Product product = new(model.Name!, model.Description!, price, imageFaker.Image.PicsumUrl());
 
         dbContext.Products.Add(product);
         await dbContext.SaveChangesAsync();
