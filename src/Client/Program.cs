@@ -15,9 +15,11 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddSingleton<FakeAuthenticationProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<FakeAuthenticationProvider>());
 builder.Services.AddTransient<FakeAuthorizationMessageHandler>();
+builder.Services.AddTransient<CleanErrorHandler>();
 
 builder.Services.AddHttpClient("Project.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
-                .AddHttpMessageHandler<FakeAuthorizationMessageHandler>();
+                .AddHttpMessageHandler<FakeAuthorizationMessageHandler>()
+                .AddHttpMessageHandler<CleanErrorHandler>();
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Project.ServerAPI"));
 
