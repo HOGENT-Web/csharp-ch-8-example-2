@@ -51,10 +51,10 @@ public class CustomerController : ControllerBase
     }
 
     [SwaggerOperation("Places an order for an existing customer.")]
-    [HttpPost("{customerId}/place-order")]
-    public async Task<IActionResult> PlaceOrder(int customerId, OrderDto.Create model)
+    [HttpPost("place-order")]
+    public async Task<IActionResult> PlaceOrder(OrderDto.Create model)
     {
-        int orderId = await orderService.CreateAsync(customerId, model);
-        return CreatedAtAction(nameof(PlaceOrder), new { id = orderId });
+        int orderId = await orderService.CreateAsync(model);
+        return CreatedAtAction(nameof(PlaceOrder), orderId);
     }
 }

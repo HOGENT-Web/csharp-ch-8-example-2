@@ -4,6 +4,6 @@ namespace BogusStore.Shared.Orders
 {
     public interface IOrderService
     {
-        Task<int> CreateAsync(int customerId, OrderDto.Create model);
+        Task<int> CreateAsync(OrderDto.Create model);
     }
 }
