@@ -11,6 +11,7 @@ using BogusStore.Client.Tags;
 using BogusStore.Client.Orders;
 using BogusStore.Shared.Customers;
 using BogusStore.Client.Customers;
+using BogusStore.Shared.Orders;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -34,5 +35,6 @@ builder.Services.AddScoped<Cart>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 await builder.Build().RunAsync();

@@ -32,4 +32,10 @@ public class Cart
         items.Remove(item);
         NotifyCartChanged();
     }
+
+    public void Clear()
+    {
+        items.Clear();
+        NotifyCartChanged();
+    }
 }
