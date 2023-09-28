@@ -61,6 +61,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<SessionMiddleware>();
 
 app.MapRazorPages();
 app.MapControllers().RequireAuthorization();

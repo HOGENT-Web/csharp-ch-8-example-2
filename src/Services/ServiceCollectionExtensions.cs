@@ -1,4 +1,5 @@
-﻿using BogusStore.Services.Customers;
+﻿using BogusStore.Domain.Sessions;
+using BogusStore.Services.Customers;
 using BogusStore.Services.Orders;
 using BogusStore.Services.Products;
 using BogusStore.Shared.Customers;
@@ -17,6 +18,7 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddBogusServices(this IServiceCollection services)
     {
+        services.AddScoped<ISession, Session>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<ITagService, TagService>();
         services.AddScoped<ICustomerService, CustomerService>();
