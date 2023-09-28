@@ -31,6 +31,7 @@ public abstract class ProductDto
         public string? Name { get; set; }
         public decimal Price { get; set; }
         public string? Description { get; set; }
+        public string? ImageContentType { get; set; }
 
         public class Validator : AbstractValidator<Mutate>
         {
@@ -39,6 +40,7 @@ public abstract class ProductDto
                 RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
                 RuleFor(x => x.Description).NotEmpty().MaximumLength(1_000);
                 RuleFor(x => x.Price).InclusiveBetween(0,1_000);
+                RuleFor(x => x.ImageContentType).NotEmpty().WithName("Image");
             }
         }
     }

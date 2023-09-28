@@ -1,7 +1,9 @@
 using Bogus; 
 using System.Linq;
+using BogusStore.Domain.Files;
 using BogusStore.Domain.Products;
 using BogusStore.Persistence;
+using BogusStore.Services.Files;
 using BogusStore.Shared.Products;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +12,12 @@ namespace BogusStore.Services.Products;
 public class ProductService : IProductService
 {
     private readonly BogusDbContext dbContext;
+    private readonly IStorageService storageService;
 
-    public ProductService(BogusDbContext dbContext)
+    public ProductService(BogusDbContext dbContext, IStorageService storageService)
     {
         this.dbContext = dbContext;
+        this.storageService = storageService;
     }
 
     public async Task<ProductResult.Index> GetIndexAsync(ProductRequest.Index request)
@@ -83,20 +87,27 @@ public class ProductService : IProductService
         return product;
     }
 
-    public async Task<int> CreateAsync(ProductDto.Mutate model)
+    public async Task<ProductResult.Create> CreateAsync(ProductDto.Mutate model)
     {
         if (await dbContext.Products.AnyAsync(x => x.Name == model.Name))
             throw new EntityAlreadyExistsException(nameof(Product), nameof(Product.Name), model.Name);
 
-        Faker imageFaker = new();
-
+        Image image = new Image(storageService.BasePath, model.ImageContentType!);
         Money price = new(model.Price);
-        Product product = new(model.Name!, model.Description!, price, imageFaker.Image.PicsumUrl());
+        Product product = new(model.Name!, model.Description!, price, image.FileUri.ToString());
 
         dbContext.Products.Add(product);
         await dbContext.SaveChangesAsync();
 
-        return product.Id;
+        Uri uploadSas = storageService.GenerateImageUploadSas(image);
+
+        ProductResult.Create result = new()
+        {
+            ProductId = product.Id,
+            UploadUri = uploadSas.ToString()
+        };
+
+        return result;
     }
 
 

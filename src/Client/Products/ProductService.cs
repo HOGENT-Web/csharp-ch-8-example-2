@@ -15,10 +15,10 @@ public class ProductService : IProductService
     {
         this.client = client;
     }
-    public async Task<int> CreateAsync(ProductDto.Mutate request)
+    public async Task<ProductResult.Create> CreateAsync(ProductDto.Mutate request)
     {
         var response = await client.PostAsJsonAsync(endpoint,request);
-        return await response.Content.ReadFromJsonAsync<int>();
+        return await response.Content.ReadFromJsonAsync<ProductResult.Create>();
     }
 
     public async Task DeleteAsync(int productId)
